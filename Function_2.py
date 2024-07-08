@@ -19,7 +19,7 @@ folder_path = r'E:\PPT_New'
 
 # 调用函数获取每个PPT文件的页数
 ppt_files_pages = count_slides_in_folder(folder_path)
-
+print('ppt_files_pages[0]')
 # 打印每个PPT文件的页数
 for filename, num_pages in ppt_files_pages.items():
     print(f"{filename}: {num_pages} 页。")
