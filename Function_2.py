@@ -1,5 +1,4 @@
 from pptx import Presentation
-from pptx.util import Inches
 import os
 from io import BytesIO
 
@@ -17,8 +16,11 @@ def copy_slide(prs, slide):
             image_stream = BytesIO(shape.image.blob)
             new_slide.shapes.add_picture(image_stream, shape.left, shape.top, shape.width, shape.height)
         else:
-            # 对于其他形状类型，直接复制
-            new_slide.shapes._spTree.insert_element_before(shape._element, 'p:extLst')
+            if shape.has_text_frame:
+                new_shape = new_slide.shapes.add_textbox(shape.left, shape.top, shape.width, shape.height)
+                new_shape.text = shape.text_frame.text
+            else:
+                new_slide.shapes._spTree.insert_element_before(shape._element, 'p:extLst')
 
     # 复制背景
     new_slide_background = new_slide.background
