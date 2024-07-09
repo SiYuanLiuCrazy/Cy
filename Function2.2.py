@@ -4,28 +4,45 @@ from spire.presentation.common import *
 import os
 # 设置文件夹路径
 folder_path = r"E:\PPT_Home"
-output_path = r"E:\PPT_Signal_Page"
+output_root = r"E:\PPT_Signal_Page"
+
 # 获取文件夹中所有文件的列表
 files = os.listdir(folder_path)
-print(files)
+
 # 遍历每个文件
 for file_name in files:
-    if file_name.endswith(".pptx"):
+    if file_name.endswith(".ppt"):
         file_path = os.path.join(folder_path, file_name)
-        print(file_path)
-        # 创建Presentation类的对象
+        print(f"Processing file: {file_name}")
+        
+        # 创建Presentation对象
         presentation = Presentation()
+        
         # 加载演示文件
         presentation.LoadFromFile(file_path)
+        
         # 获取PPT中的页数
-        slide_count = presentation.Slides
-        length = len(slide_count)
-        print(f"Total number of slides: {length}")
-        for i in range(length):
-        # 获取一个幻灯片
+        slide_count = len(presentation.Slides)
+        print(f"Total number of slides: {slide_count}")
+        
+        # 创建以原始文件名命名的输出文件夹
+        output_folder_name = os.path.splitext(file_name)[0]
+        output_folder_path = os.path.join(output_root, output_folder_name)
+        os.makedirs(output_folder_path, exist_ok=True)
+        
+        # 遍历每个幻灯片
+        for i in range(slide_count):
             slide = presentation.Slides[i]
-            filename = os.path.join(output_path, f"{file_name}_{i}.pptx")
-            slide.SaveToFile(filename, FileFormat.Pptx2019)
+            
+            # 构造输出文件名
+            slide_filename = f"{output_folder_name}_slide{i + 1}.pptx"
+            output_file_path = os.path.join(output_folder_path, slide_filename)
+            
+            # 保存当前幻灯片到文件
+            slide.SaveToFile(output_file_path, FileFormat.Pptx2019)
+        
+        # 释放Presentation对象
         presentation.Dispose()
+
 print("All files processed.")
 
