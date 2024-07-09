@@ -13,7 +13,7 @@ files = os.listdir(folder_path)
 
 # 遍历每个文件
 for file_name in files:
-    if file_name.endswith(".ppt"):
+    if file_name.endswith(".ppt") or file_name.endswith(".pptx"):
         file_path = os.path.join(folder_path, file_name)
         print(f"Processing file: {file_name}")
         
