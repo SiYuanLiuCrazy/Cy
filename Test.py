@@ -37,6 +37,7 @@ file_object = client.files.create(file=Path(file_name), purpose="file-extract")
 # 获取结果
 # file_content = client.files.retrieve_content(file_id=file_object.id)
 # 注意，之前 retrieve_content api 在最新版本标记了 warning, 可以用下面这行代替
+# 如果是旧版本，可以用 retrieve_content
 file_content = client.files.content(file_id=file_object.id).text
  
 # 把它放进请求中
@@ -67,6 +68,7 @@ while True:
     if choice == 'yes':
         Rename_folder = r'E:\\PPT_Rename'
         new_file_path = os.path.join(Rename_folder, name)
+        print(name)
         # 将文件复制到新位置并使用新名称
         shutil.copy(ppt_files[0], new_file_path)
         print(f"File successfully copied to {new_file_path}")
@@ -75,18 +77,11 @@ while True:
         new_name = input("Please enter a new name: ").strip()
         if new_name.endswith('.pptx'):
             name = new_name
+            print(name)
         else:
             name = new_name + '.pptx'
+            print(name)
         Rename_folder = r'E:\\PPT_Rename'
         new_file_path = os.path.join(Rename_folder, name)
-        # 将文件复制到新位置并使用新名称
-        shutil.copy(ppt_files[0], new_file_path)
     else:
         print("Invalid choice. Please enter 'yes' or 'no'.")
-
-# Rename_folder = r'E:\\PPT_Rename'
-# new_file_path = os.path.join(Rename_folder, name)
-# # 将文件复制到新位置并使用新名称
-# shutil.copy(ppt_files[0], new_file_path)
-
-
