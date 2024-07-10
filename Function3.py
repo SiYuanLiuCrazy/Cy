@@ -7,7 +7,7 @@ client = OpenAI(
 )
  
 # xlnet.pdf 是一个示例文件, 我们支持 pdf, doc 以及图片等格式, 对于图片和 pdf 文件，提供 ocr 相关能力
-file_object = client.files.create(file=Path("E:\PPT_ReadyToMerge\清华-滴滴项目结题报告_20240705_slide_1.pptx"), purpose="file-extract")
+file_object = client.files.create(file=Path("E:\PPT_ReadyToMerge\Slide_1.pdf"), purpose="file-extract")
  
 # 获取结果
 # file_content = client.files.retrieve_content(file_id=file_object.id)
@@ -25,7 +25,7 @@ messages = [
         "role": "system",
         "content": file_content,
     },
-    {"role": "user", "content": "请给 E:\PPT_ReadyToMerge\清华-滴滴项目结题报告_20240705_slide_1.pptx 起一个7个字以内的名字，请不要自己过度解读，以文件中的内容为准"},
+    {"role": "user", "content": "请给 E:\PPT_ReadyToMerge\Slide_1.pdf 起一个10个字以内的名字，如果文件中有主标题，那么选择文件中的主标题，如果没有主标题，请用副标题，如果没有副标题请自己对内容进行总结，注意要精简、准确，请不要自己过度解读，不要添加文件中不存在的内容"},
 ]
  
 # 然后调用 chat-completion, 获取 Kimi 的回答
