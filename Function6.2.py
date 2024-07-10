@@ -18,12 +18,14 @@ page_ppt = len(ppt_files)
 print(page_ppt)
 Merge1 = Presentation()
 Merge2 = Presentation()
+Merge3 = Presentation()
 Merge1.LoadFromFile(ppt_files[0])
+Merge3.LoadFromFile(ppt_files[3])
 print(Merge1.Slides[0])
 for i in range(page_ppt-1):
     Merge2.LoadFromFile(ppt_files[i+1])
     slide = Merge2.Slides[0]
-    Merge1.Slides.AppendByMaster(slide,Merge1.Masters[0])
+    Merge1.Slides.AppendByMaster(slide,Merge3.Masters[0])
 
 # 保存第一个演示文稿
 Merge1.SaveToFile(output_path,FileFormat.Pptx2019)
